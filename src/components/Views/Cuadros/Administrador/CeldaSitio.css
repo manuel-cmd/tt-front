@@ -1,0 +1,22 @@
+.bot{
+    width: 25%;
+}
+
+.botones{
+    display: flex;
+    justify-content: space-around;
+}
+
+.actualizar{
+    background-color: #B5DEFC;
+    color: #4691FE;
+    border: 1px solid #4691FE;
+    width: 40%;
+}
+
+.eliminar{
+    background-color: #F8C0BF;
+    border: 1px solid #FE4946;
+    color: #FE4946;
+    width: 40%;
+}

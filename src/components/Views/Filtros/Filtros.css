@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: large;
+}
+
+.precio {
+    width: 110%;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.filtro_botones {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+button {
+    border-radius: 10px;
+    padding: 2px 0px;
+}
+
+.buscar_filtro {
+    border: 1px solid rgb(207, 160, 252);
+    background-color: rgb(207, 160, 252);
+}
+
+.eliminar_filtro {
+    border: 1px solid rgb(233, 50, 50);
+    background-color: rgb(233, 50, 50);
+}
+
+.filtro {
+    top: 130px;
+    background-color: #B9DEFA;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #1D83D1;
+    position: absolute;
+    width: 15%;
+    align-items: center;
+    left: 30px;
+}
+
+.precio {
+    width: 30%;
+}
+
+.rango {
+    display: inline;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}

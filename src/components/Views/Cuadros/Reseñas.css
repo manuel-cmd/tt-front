@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.reseña_datos{
+    display: flex;
+    position: relative;
+    float: right;    
+    width: 100%;
+    right: 0px;
+}
+
+.fecha{
+    display: flex;
+    position: absolute;
+    right: 0px;
+}
+
+textarea{
+    width: 100%;
+    height: auto;
+    resize: none;
+}
+
+.parte_grande{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    text-align: center;
+}
+
+.parte_chica{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.izquierda_abajo {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+
+.imagen_grande2{
+    width: 100%;    
+    height: 100%;
+}
+
+.imagenes{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.imagen_chica{
+    background-color: black;
+    width: 45%;
+    height: 90px;
+}
+
+.tipo{
+    text-align: left;
+}
+.parte_chica .calificacion_usuarios{
+    text-align: right;
+    width: 100%;
+    float: right;
+}

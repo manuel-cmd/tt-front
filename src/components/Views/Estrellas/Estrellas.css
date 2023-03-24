@@ -1,0 +1,14 @@
+.estrellas {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+}
+
+.star_widget label {
+    font-size: 20px;
+    color: #444;
+    padding: 10px;
+    float: right;
+    transition: all 0.2s ease;
+}

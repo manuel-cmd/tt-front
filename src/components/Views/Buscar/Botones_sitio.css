@@ -1,0 +1,16 @@
+.boton_comentarios, .boton_informacion, .boton_reseñar{
+    border-radius: 0px;
+    width: 20%;
+    font-size: large;
+    border: 1px solid #1D83D1;
+}
+
+.boton_comentarios:hover, .boton_informacion:hover, .boton_reseñar:hover,
+.boton_comentarios:active,.boton_informacion:active, .boton_reseñar:active{
+    background-color: #ADD1EC;
+}
+
+.boton_reseñar{
+    position: absolute;
+    right: 0px;
+}
