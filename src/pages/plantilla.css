@@ -1,0 +1,15 @@
+.centro{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.enmedio{
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}

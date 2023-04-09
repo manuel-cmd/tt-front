@@ -1,0 +1,15 @@
+export const ROUTES_REGISTRADO = {
+  LOGIN: "/login",
+  INICIO: "/inicio",
+  SITIOS: "/sitios",
+  SITIOSID: "/InfoSitio",
+  INFORMACION: "/informacion",
+  COMENTARIOS: "/comentarios",
+  RESEÑAR: "/reseñar",
+  FAVORITOS: "/favoritos",
+  FAVORITOSID: "/favoritosID",
+  RESEÑAS: "/reseñas",
+  RESEÑASID: "/reseñasID",
+  RESEÑAS_NO_FILTRO: "/reseñas_no_filtro",
+  CONFIGURACION: "/ConfigurarCuenta",
+};

@@ -4,10 +4,9 @@
     box-sizing: border-box;
 }
 
-img {
+.sitio {
     width: 33.3%;
-    height: 150px;
-    background-color: white;
+    height: 150px;    
 }
 
 .parte1,
@@ -82,4 +81,8 @@ img {
 
 .slider_btn_izquierda {
     left: 5px;
+}
+
+.sitio{
+    border: 1px solid #1D83D1;
 }

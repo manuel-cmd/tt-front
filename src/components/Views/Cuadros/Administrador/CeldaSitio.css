@@ -1,5 +1,5 @@
 .bot{
-    width: 25%;
+    width: 23%;
 }
 
 .botones{
@@ -11,12 +11,20 @@
     background-color: #B5DEFC;
     color: #4691FE;
     border: 1px solid #4691FE;
-    width: 40%;
+    border-radius: 10px;
+    width: 100%;
+    text-decoration:none;
 }
 
 .eliminar{
     background-color: #F8C0BF;
     border: 1px solid #FE4946;
     color: #FE4946;
-    width: 40%;
+    border-radius: 10px;
+    width: 110%;
+    text-decoration:none;
+}
+
+.correo{
+    width: 30%;
 }

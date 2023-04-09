@@ -1,23 +1,34 @@
 import React from "react";
 
-import './Menu_no_r.css';
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../../constants/routes";
+import "./Menu_no_r.css";
 
-function Menu_no_r(){
-    console.log('a ver si');
-    return(
-        <div class="menu">
-            <label class="checkbtn">
-                Logo
-            </label>
-            <div class="opciones">
-                <ul>
-                    <li><a class="active" href="https://www.google.com/">Inicio</a></li>
-                    <li><a href="https://www.google.com/">Sitios</a></li>
-                    <li><a href="https://www.google.com/">Iniciar Sesión</a></li>
-                </ul>
-            </div>
-        </div>
-    );
-};
+function Menu_no_r() {
+  return (
+    <div class="menu">
+      <label class="checkbtn">Logo</label>
+      <div class="opciones">
+        <ul>
+          <Link to={ROUTES.INICIO} style={{ textDecoration: "none" }}>
+            <li>
+              <a class="active">Inicio</a>
+            </li>
+          </Link>
+          <Link to={ROUTES.SITIOS} style={{ textDecoration: "none" }}>
+            <li>
+              <a class="active">Sitios</a>
+            </li>
+          </Link>
+          <Link to={ROUTES.INICIARSESION} style={{ textDecoration: "none" }}>
+            <li>
+              <a class="active">Iniciar Sesión</a>
+            </li>
+          </Link>
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 export default Menu_no_r;
