@@ -8,6 +8,11 @@
     left: 100px;
     width: 100%;
     text-align: left;
+    display: flex;
+}
+
+.resultados{
+    width: 80%;
 }
 
 .inicio2 {

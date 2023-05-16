@@ -5,7 +5,7 @@ import ConjuntoImagenes from "./Imagenes/ConjuntoImagenes";
 
 import "./Reseñas.css";
 
-function Reseñas() {
+function Reseñas(props) {
   return (
     <div className="izquierda_abajo">
       <br />

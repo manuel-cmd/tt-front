@@ -4,9 +4,13 @@
     box-sizing: border-box;
 }
 
-.sitio {
+.imagenSitio{
     width: 33.3%;
-    height: 150px;    
+    height: 150px;
+}
+
+.sitio {
+    
 }
 
 .parte1,

@@ -1,0 +1,31 @@
+.formRegistro{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+}
+
+.registro{    
+    border: 2px solid;
+    border-radius: 20px;
+    border-color: #118EDF;
+    width: 60%;
+}
+
+.reg{
+    width: 80%;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+}
+
+.campo{
+    width: 30%;
+    text-align: left;
+}
+
+.input{
+    width: 50%;
+}

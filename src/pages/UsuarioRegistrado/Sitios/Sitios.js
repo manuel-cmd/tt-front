@@ -8,7 +8,7 @@ import Filtros from "../../../components/Views/Filtros/Filtros";
 const Sitios = () => {
   return (
     <div>
-      <Filtros />
+      {/*<Filtros />*/}
       <ListaSitios />
     </div>
   );

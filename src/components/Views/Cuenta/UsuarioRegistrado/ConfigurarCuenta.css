@@ -33,7 +33,17 @@
     justify-content: space-between;
 }
 
-.etiqueta{    
+.bloque_chico{
+    width: 100%;
+    display: flex;
+}
+
+
+.etiqueta_chico{
+    display: flex;
+    width: 41.4%;
+}
+.etiqueta{
     display: flex;
     width: 40%;
 }

@@ -1,5 +1,9 @@
-.selector{
-    display: flex;
-    position: relative;
+.selector{ 
+    position: absolute;
+    display: inline;    
     float: right;
+    margin-right: 0px;
+}
+
+.filtrarReseñas{
 }

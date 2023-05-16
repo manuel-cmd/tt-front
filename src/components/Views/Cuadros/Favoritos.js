@@ -1,12 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Route, Routes, BrowserRouter, Link } from "react-router-dom";
 import { ROUTES_REGISTRADO } from "../../../constants/routes_usuario_registrado";
 
 import Estrellas from "../Estrellas/Estrellas";
 import "./Sitio.css";
+import InfoSitio from "./InfoSitio";
 
 function Favoritos(props) {
+  const [id] = useState(props.items.cve_sitio);
+  const [nombre] = useState(props.items.nombre_sitio);
+  const [correo] = useState(props.items.correo_sitio);
+  const [descripcion] = useState(props.items.descripcion);
+  const [ubicacion] = useState(props.items.direccion);
+  const [telefono] = useState(props.items.telefono);
+  const [calificacion] = useState(props.items.calificacion);
+  const [imagen] = useState(props.items.imagen);
+  const [tipo] = useState(props.items.tipo_sitio);
+  const [pagina] = useState(props.items.pagina_web);
+  const [delegacion] = useState(props.items.delegacion);
+  const info = {
+    id,
+    nombre,
+    correo,
+    ubicacion,
+    telefono,
+    calificacion,
+    imagen,
+    pagina,
+    tipo,
+    delegacion,
+  };
+
+  const tipo_usuario = 0;
+
   return (
     <div className="izquierda_abajo">
       <br />
@@ -19,13 +46,26 @@ function Favoritos(props) {
           </div>
           <div class="parte2">
             <div className="parte3">
-              <Link
-                to={ROUTES_REGISTRADO.SITIOSID}
-                style={{ textDecoration: "none" }}
-              >
-                <label for="">Restaurante 1</label>
-              </Link>
-              <label>Tel. 55 55555555</label>
+              {tipo_usuario == 1 ? (
+                <Link
+                  to={`${ROUTES_REGISTRADO.SITIOSID}/:${id}`}
+                  state={id}
+                  style={{ textDecoration: "none" }}
+                >
+                  {/*const location = useLocation();*/}
+                  <a href={<InfoSitio />}>{nombre}</a>
+                </Link>
+              ) : (
+                <Link
+                  to={`/usuario${ROUTES_REGISTRADO.SITIOSID}/:${id}`}
+                  state={id}
+                  style={{ textDecoration: "none" }}
+                >
+                  {/*const location = useLocation();*/}
+                  <a href={<InfoSitio />}>{nombre}</a>
+                </Link>
+              )}
+              <label>Tel. {telefono}</label>
             </div>
             <div className="parte3">
               <label>Calificación de Usuarios:</label>
@@ -34,7 +74,7 @@ function Favoritos(props) {
             </div>
             <div className="parte3">
               <label>A 1.6 km de distancia</label>
-              <label>Ubicación: algun lugar my¿uy lejano.</label>
+              <label>Ubicación: {ubicacion}</label>
             </div>
           </div>
         </div>

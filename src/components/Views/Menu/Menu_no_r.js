@@ -20,7 +20,7 @@ function Menu_no_r() {
               <a class="active">Sitios</a>
             </li>
           </Link>
-          <Link to={ROUTES.INICIARSESION} style={{ textDecoration: "none" }}>
+          <Link to={ROUTES.LOGIN} style={{ textDecoration: "none" }}>
             <li>
               <a class="active">Iniciar Sesión</a>
             </li>

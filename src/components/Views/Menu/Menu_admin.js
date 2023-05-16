@@ -9,23 +9,32 @@ function Menu_admin() {
       <label class="checkbtn">Logo</label>
       <div class="opciones">
         <ul>
-          <Link to={ROUTES_ADMIN.INICIO} style={{ textDecoration: "none" }}>
+          <Link
+            to={`/administrador${ROUTES_ADMIN.INICIO}`}
+            style={{ textDecoration: "none" }}
+          >
             <li>
               <a class="active">Inicio</a>
             </li>
           </Link>
-          <Link to={ROUTES_ADMIN.SITIOS} style={{ textDecoration: "none" }}>
+          <Link
+            to={`/administrador${ROUTES_ADMIN.SITIOS}`}
+            style={{ textDecoration: "none" }}
+          >
             <li>
               <a class="active">Sitios</a>
             </li>
           </Link>
-          <Link to={ROUTES_ADMIN.USUARIOS} style={{ textDecoration: "none" }}>
+          <Link
+            to={`/administrador${ROUTES_ADMIN.USUARIOS}`}
+            style={{ textDecoration: "none" }}
+          >
             <li>
               <a class="active">Usuario</a>
             </li>
           </Link>
           <Link
-            to={ROUTES_ADMIN.CONFIGURACION}
+            to={`/administrador${ROUTES_ADMIN.CONFIGURACION}`}
             style={{ textDecoration: "none" }}
           >
             <li>

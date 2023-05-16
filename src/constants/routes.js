@@ -1,9 +1,9 @@
 export const ROUTES = {
-  LOGIN: "/login",
   INICIO: "/inicio",
-  INICIARSESION: "/iniciarsesion",
+  LOGIN: "/login",
   SITIOS: "/sitios",
   SITIOSID: "/InfoSitio",
   INFORMACION: "/informacion",
   COMENTARIOS: "/comentarios",
+  REGISTRAR: "/registro",
 };

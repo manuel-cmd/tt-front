@@ -13,7 +13,7 @@ function Menu_r() {
       <div class="opciones">
         <ul>
           <Link
-            to={ROUTES_REGISTRADO.INICIO}
+            to={`/usuario${ROUTES_REGISTRADO.INICIO}`}
             style={{ textDecoration: "none" }}
           >
             <li>
@@ -21,7 +21,7 @@ function Menu_r() {
             </li>
           </Link>
           <Link
-            to={ROUTES_REGISTRADO.SITIOS}
+            to={`/usuario${ROUTES_REGISTRADO.SITIOS}`}
             style={{ textDecoration: "none" }}
           >
             <li>
@@ -29,7 +29,7 @@ function Menu_r() {
             </li>
           </Link>
           <Link
-            to={ROUTES_REGISTRADO.FAVORITOS}
+            to={`/usuario${ROUTES_REGISTRADO.FAVORITOS}`}
             style={{ textDecoration: "none" }}
           >
             <li>
@@ -37,7 +37,7 @@ function Menu_r() {
             </li>
           </Link>
           <Link
-            to={ROUTES_REGISTRADO.RESEÑAS}
+            to={`/usuario${ROUTES_REGISTRADO.RESEÑAS}`}
             style={{ textDecoration: "none" }}
           >
             <li>
@@ -45,7 +45,7 @@ function Menu_r() {
             </li>
           </Link>
           <Link
-            to={ROUTES_REGISTRADO.CONFIGURACION}
+            to={`/usuario${ROUTES_REGISTRADO.CONFIGURACION}`}
             style={{ textDecoration: "none" }}
           >
             <li>

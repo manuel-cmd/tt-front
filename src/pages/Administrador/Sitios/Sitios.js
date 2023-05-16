@@ -8,7 +8,7 @@ import "../../plantilla.css";
 const Sitios = () => {
   return (
     <div class="centro">
-      <Filtros />
+      {/*<Filtros />*/}
       <SitiosInteres />
     </div>
   );

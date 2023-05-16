@@ -7,7 +7,7 @@ import Filtros from "../../../components/Views/Filtros/Filtros";
 const Reseñas = () => {
   return (
     <div>
-      <Filtros />
+      {/*<Filtros />*/}
       <ListaReseñas />
     </div>
   );
