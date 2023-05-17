@@ -7,7 +7,7 @@ import { ROUTES_REGISTRADO } from "../../../constants/routes_usuario_registrado"
 import Estrellas from "../Estrellas/Estrellas";
 
 import "./Sitio.css";
-import InfoSitio from "./InfoSitio";
+import InfoSitio from "./InfoSitioNoRegistrado";
 import { UserContext } from "../../../pages/UsuarioRegistrado/Inicio/App2";
 
 function Sitio(props) {

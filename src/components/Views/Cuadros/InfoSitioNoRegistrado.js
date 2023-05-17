@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Estrellas from "../Estrellas/Estrellas";
 import Botones_sitio from "../Buscar/Botones_sitio";
@@ -17,8 +17,6 @@ const API = "http://localhost:5000";
 
 function InfoSitio(props) {
   const u = useContext(UserContext);
-
-  const [sitio, setSitios] = useState([]);
 
   const location = useLocation();
   const id = location.state;
@@ -48,15 +46,14 @@ function InfoSitio(props) {
   const handleFavotiros = async (e) => {
     console.log("favoritos");
     e.preventDefault();
-    //console.log("la opcion es: ", fav);
-    const id_usuario = u.usuario;
+    console.log("la opcion es: ", fav);
     console.log("API:", API);
     //console.log(process.env.REACT_APP_API);
 
-    const res = await fetch(`${API}/sitio_favorito`, {
-      method: "POST",
+    const res = await fetch(`${API}/sitiosAcomodados`, {
+      method: "UPDATE",
       headers: { "CONTENT-TYPE": "application/json" },
-      body: JSON.stringify({ id_usuario, id }),
+      body: JSON.stringify({ id, fav }),
     });
     console.log("res: ", res);
     const data = await res.json();
@@ -69,28 +66,6 @@ function InfoSitio(props) {
   const favorito = true;
   const [fav, setFav] = useState(favorito);
   //  favorito = fav;
-
-  const infoSitio = async (e) => {
-    e.preventDefault();
-    //console.log("la opcion es: ", opcion);
-    console.log("API:", API);
-    //console.log("length filtros: ", filtros.length);
-
-    const res = await fetch(`${API}/sitios/${id}`, {
-      method: "GET",
-      headers: { "CONTENT-TYPE": "application/json" },
-      body: JSON.stringify({ id }),
-    });
-    console.log("res: ", res);
-    const data = await res.json();
-    setSitios(data);
-    console.log("data: ", data);
-  };
-
-  useEffect(() => {
-    infoSitio();
-  }, []);
-
   return (
     <div class="inicio2">
       <div class="guia2">

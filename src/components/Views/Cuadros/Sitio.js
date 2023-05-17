@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -10,9 +10,12 @@ import "./Sitio.css";
 import InfoSitio from "./InfoSitio";
 import { UserContext } from "../../../pages/UsuarioRegistrado/Inicio/App2";
 
+const API = "http://localhost:5000";
+
 function Sitio(props) {
   const u = useContext(UserContext);
 
+  const [sitio, setSitios] = useState([]);
   console.log(props);
   const [id] = useState(props.items.cve_sitio);
   const [nombre] = useState(props.items.nombre_sitio);
@@ -41,6 +44,27 @@ function Sitio(props) {
   console.log("tipo usuario: ", tipo_usuario);
   const [imagenActual, setImagenActual] = useState(0);
   //const cantidad = imagen.length;
+
+  const infoSitio = async (e) => {
+    e.preventDefault();
+    //console.log("la opcion es: ", opcion);
+    console.log("API:", API);
+    //console.log("length filtros: ", filtros.length);
+
+    const res = await fetch(`${API}/sitios/${id}`, {
+      method: "GET",
+      headers: { "CONTENT-TYPE": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    console.log("res: ", res);
+    const data = await res.json();
+    setSitios(data);
+    console.log("data: ", data);
+  };
+
+  useEffect(() => {
+    infoSitio();
+  }, []);
 
   return (
     <div className="izquierda_abajo">

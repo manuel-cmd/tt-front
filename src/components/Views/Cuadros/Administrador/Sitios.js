@@ -23,7 +23,7 @@ function Sitios(props) {
     console.log("length filtros: ", filtros.length);
 
     const res = await fetch(
-      `${API}/sitios` /*, {
+      `${API}/sitiosAdministrador` /*, {
       method: "GET",
       headers: { "CONTENT-TYPE": "application/json" },
       body: JSON.stringify({ name, opcion }),
@@ -36,33 +36,9 @@ function Sitios(props) {
   };
 
   const getSitios = async (e) => {
-    const res = await fetch(`${API}/sitios`);
+    const res = await fetch(`${API}/sitiosAdministrador`);
     const data = await res.json();
     console.log("datos de getSitios: ", res);
-    setSitios(data);
-  };
-
-  const getMasSitios = async (e) => {
-    console.log("length filtros: ", filtros.length);
-    if (
-      filtros[0][0][1] != "" &&
-      filtros[0][1][1] != "" &&
-      filtros[0][2][1] != ""
-    ) {
-      console.log("filtros lista ahora:", filtros[0][2]);
-      setDelegacio(filtros[0][0]);
-      setPreciomenor(filtros[0][1]);
-      setPreciomayor(filtros[0][2]);
-    }
-    const res = await fetch(
-      `${API}/sitios` /*, {
-      method: "GET",
-      headers: { "CONTENT-TYPE": "application/json" },
-      body: JSON.stringify({ name, opcion }),
-    }*/
-    );
-    console.log("respuesta que se deberia ejecutar despues: ", res);
-    const data = await res.json();
     setSitios(data);
   };
 
@@ -75,14 +51,6 @@ function Sitios(props) {
       console.log("inicia bien 2");
     }
   }, [opcion]);
-
-  useEffect(() => {
-    console.log("deberia pasar algo");
-    if (filtros != [] && filtros.length > 0) {
-      getMasSitios();
-      console.log("filtro filtros: ", filtros);
-    }
-  }, [filtros]);
 
   return (
     <div>

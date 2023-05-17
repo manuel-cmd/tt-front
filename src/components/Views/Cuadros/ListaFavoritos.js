@@ -20,9 +20,10 @@ function ListaFavoritos() {
   const [opcion, setOpcion] = useState(0);
   const [sitios, setSitios] = useState([]);
   const [filtros, setFiltros] = useState([]);
-  const [preciomenor, setPreciomenor] = useState("");
-  const [preciomayor, setPreciomayor] = useState("");
-  const [delegacion, setDelegacio] = useState("");
+  const [precio_min, setPreciomenor] = useState("");
+  const [precio_max, setPreciomayor] = useState("");
+  const [calificacion_min, setCalificacion_min] = useState("");
+  const [cve_delegacion, setDelegacio] = useState("");
 
   const [favoritos, setFavoritos] = useState([]);
 
@@ -54,6 +55,7 @@ function ListaFavoritos() {
 
   const getMasSitios = async (e) => {
     console.log("length filtros: ", filtros.length);
+    setCalificacion_min(7);
     if (
       filtros[0][0][1] != "" &&
       filtros[0][1][1] != "" &&
@@ -64,13 +66,16 @@ function ListaFavoritos() {
       setPreciomenor(filtros[0][1]);
       setPreciomayor(filtros[0][2]);
     }
-    const res = await fetch(
-      `${API}/sitios` /*, {
+    const res = await fetch(`${API}/sitios/filtros`, {
       method: "GET",
       headers: { "CONTENT-TYPE": "application/json" },
-      body: JSON.stringify({ name, opcion }),
-    }*/
-    );
+      body: JSON.stringify({
+        precio_min,
+        precio_max,
+        calificacion_min,
+        cve_delegacion,
+      }),
+    });
     console.log("respuesta que se deberia ejecutar despues: ", res);
     const data = await res.json();
     setSitios(data);

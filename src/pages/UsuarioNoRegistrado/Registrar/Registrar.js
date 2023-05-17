@@ -8,56 +8,52 @@ import { Toaster } from "react-hot-toast";
 import "./Registrar.css";
 
 import { useNavigate } from "react-router-dom";
+import RegisterController from "./RegisterController";
 
 const API = "http://localhost:5000";
 
 //export const Registrar= ({navigation, route}: Props) => {
 function Registrar() {
+  const [data, setData] = useState(null);
+  const navigate = useNavigate();
+  const { register } = RegisterController();
+
   const [correo, setCorreo] = useState("");
   const [usuario, setNombre] = useState("");
   const [contrasena, setContra] = useState("");
   const [contrasenarepetir, setContrarepetir] = useState("");
-  const [mensaje, setMensaje] = useState("");
+
   const [foto_usuario, setFoto_usuario] = useState(null);
-  const navigate = useNavigate();
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const op = 0;
-
-    const foto_usuario = null;
-    const res = await fetch(`${API}/registro`, {
-      method: "POST",
-      headers: { "CONTENT-TYPE": "application/json" },
-      body: JSON.stringify({ correo, usuario, contrasena, foto_usuario }),
-    });
-    const data = await res.json();
-    console.log("data: ", data);
-    if (data.error) {
-      toast.error(data.error);
-    }
-    if (data.message === "Usuario creado con éxito") {
-      setMensaje(data.message);
-      console.log("deberia cambiar", mensaje);
-
-      toast.success(data.message, {
-        autoClose: 5000,
-      });
-      await sleep(5000);
-      navigate("../usuario/inicio");
-    }
+    setData(await register(usuario, correo, contrasena, foto_usuario));
+    console.log("data es: ", data);
+    //navigate(<App2></App2>);
+    console.log("data otra vez: ", data);
   };
 
   useEffect(() => {
-    console.log("esta aqui");
-    console.log("el mensaje es: ", mensaje);
-    if (mensaje == "Usuario creado con éxito") {
-      console.log("el mensaje es: ", mensaje);
-      //navigate("usuario/inicio");
+    if (data == false || data == []) {
+      console.log("data error: ", data);
+      //toast.error("Error");
     }
-  }, [mensaje]);
+    if (data != null) {
+      if (data.error) {
+        toast.error(data.error);
+        console.log("data es en useEffect: ", data);
+        //navigate("../usuario/inicio");
+      }
+      if (data.message) {
+        console.log("data es en useEffect: ", data);
+        toast.success(data.message);
+
+        navigate("../usuario/inicio");
+      }
+    }
+  }, [data]);
 
   return (
     <div>
