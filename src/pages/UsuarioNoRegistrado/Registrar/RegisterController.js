@@ -15,43 +15,20 @@ const RegisterController = () => {
 
   const register = async (usuario, correo, contrasena, foto_usuario) => {
     console.log("en register");
-
+    console.log("foto usuario: ", foto_usuario);
     const res = await fetch(`${API}/registro`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ correo, usuario, contrasena, foto_usuario }),
     });
-    /*.then((res) => {
-        if (!res.ok) throw new Error("Response is not ok");
-        return false;
-      })
-      .then((res) => {
-        const { jwt } = res.access_token;
-        console.log("res es: ", res.json());
-        const data = res.json();
-        console.log("data.json: ", data);
-        localStorage.setItem(data);
-        return data;
-      });*/
+    const data = await res.json();
     if (!res.ok) {
-      return false;
+      return data;
     } else {
-      console.log("res: ", res);
-      const data = await res.json();
-      //saveUserSession(data);
-      console.log("data.json: ", data);
-      //setUser(localStorage.setItem( data));
+      //console.log("res: ", res);
+      //console.log("data.json: ", data);
+      localStorage.setItem("usuario", JSON.stringify(data));
 
-      localStorage.setItem(
-        "usuario",
-        JSON.stringify(data)
-        /*
-        "nombre",
-        data.usuario,
-        "tipo_usuario",
-        data.tipo_usuario*/
-      );
-      //console.log("user: ", user);
       return data;
     }
   };

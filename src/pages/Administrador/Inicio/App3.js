@@ -13,6 +13,7 @@ import SitioActualizar from "../../../components/Views/Cuadros/Administrador/Sit
 import ComentariosAdministrador from "../../../components/Views/Cuadros/Administrador/ComentariosAdministrador";
 import HistorialUsuario from "../../../components/Views/Cuadros/Administrador/HistorialUsuario";
 import { ROUTES_ADMIN } from "../../../constants/routes_administrador";
+import SitioNuevo from "../../../components/Views/Cuadros/Administrador/SitioNuevo";
 
 function App3() {
   return (
@@ -37,9 +38,10 @@ function App3() {
             path={ROUTES_ADMIN.CONFIGURACION}
             element={<Configuracion />}
           />
+          <Route path={ROUTES_ADMIN.SITIONUEVO} element={<SitioNuevo />} />
           <Route
-            path={ROUTES_ADMIN.SITIOACTUALIZAR}
-            element={<SitioActualizar />}
+            path={ROUTES_ADMIN.CONFIGURACION}
+            element={<Configuracion />}
           />
           <Route
             path={ROUTES_ADMIN.COMENTARIOSADMINISTRADOR}

@@ -23,7 +23,7 @@ function Registrar() {
   const [contrasena, setContra] = useState("");
   const [contrasenarepetir, setContrarepetir] = useState("");
 
-  const [foto_usuario, setFoto_usuario] = useState(null);
+  const [foto_usuario, setFoto_usuario] = useState("");
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 

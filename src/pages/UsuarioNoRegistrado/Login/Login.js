@@ -30,23 +30,15 @@ const Login = () => {
     console.log("data es: ", data);
     //navigate(<App2></App2>);
     console.log("data otra vez: ", data);
-    /*if (data.contrasena == contrasena) {
-      access = true;
-    }
-    /*if (data != false || data != []) {
-      console.log("login exitoso");
-      console.log("data es en useEffect: ", data);
-      navigate("../usuario/inicio");
-    }*/
   };
 
   useEffect(() => {
     if (data == false || data == []) {
       console.log("data error: ", data);
-      toast.error("Error");
+      toast.error(data.error);
     }
     if (data != null) {
-      if (data.tipo_usuario == "registrado") {
+      if (data.tipo_usuario == "Usuario registrado") {
         console.log("data es en useEffect: ", data);
         navigate("../usuario/inicio");
       }

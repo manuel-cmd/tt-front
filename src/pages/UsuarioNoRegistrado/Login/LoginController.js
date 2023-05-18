@@ -9,7 +9,6 @@ const API = "http://localhost:5000";
 const LoginController = () => {
   const op = false;
   //const { user, saveUserSession } = useContext(UserContext);
-  const { user, setUser } = useState();
 
   const login = async (correo, contrasena) => {
     console.log("en login");
@@ -18,36 +17,13 @@ const LoginController = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ correo, contrasena }),
     });
-    /*.then((res) => {
-        if (!res.ok) throw new Error("Response is not ok");
-        return false;
-      })
-      .then((res) => {
-        const { jwt } = res.access_token;
-        console.log("res es: ", res.json());
-        const data = res.json();
-        console.log("data.json: ", data);
-        localStorage.setItem(data);
-        return data;
-      });*/
+    const data = await res.json();
     if (!res.ok) {
-      return false;
+      return data;
     } else {
       console.log("res: ", res);
-      const data = await res.json();
-      //saveUserSession(data);
       console.log("data.json: ", data);
-      //setUser(localStorage.setItem( data));
-
-      localStorage.setItem(
-        "usuario",
-        JSON.stringify(data)
-        /*
-        "nombre",
-        data.usuario,
-        "tipo_usuario",
-        data.tipo_usuario*/
-      );
+      localStorage.setItem("usuario", JSON.stringify(data));
       //console.log("user: ", user);
       return data;
     }
