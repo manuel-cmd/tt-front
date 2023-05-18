@@ -85,3 +85,8 @@
 .slider_btn_izquierda {
     left: 5px;
 }
+
+.favoritos:hover, .boton_informacion:hover, .boton_reseñar:hover,
+.favoritos:active,.boton_informacion:active, .boton_reseñar:active{
+    color: blue;
+}

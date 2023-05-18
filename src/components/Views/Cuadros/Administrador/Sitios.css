@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.slider {
+    display: flex;
+    width: 100%;
+}
+ 
+.izquierda_abajo {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    position: relative;
+}
+
+.sitio {
+    width: 100%;
+    color: #1D83D1;
+    height: auto;
+    justify-content: space-around;
+}
+
+table{
+    width: 100%;
+}

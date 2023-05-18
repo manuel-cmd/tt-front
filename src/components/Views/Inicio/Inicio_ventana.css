@@ -9,12 +9,6 @@
     justify-content: center;
 }
 
-a {
-    align-items: center;
-    display: flex;
-    text-decoration: none;
-}
-
 .guia {
     margin-left: auto;
     margin-right: auto;
