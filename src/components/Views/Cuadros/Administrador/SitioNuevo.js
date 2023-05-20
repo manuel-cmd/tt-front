@@ -77,7 +77,7 @@ function SitioNuevo() {
     const tiempoTranscurrido = Date.now();
     const hoy = new Date();
 
-    const fecha_actualizacion = new Date().getMilliseconds;
+    const fecha_actualizacion = new Date().getMilliseconds();
 
     horario.push(
       [horarioLunesA, horarioLunesC],
