@@ -12,7 +12,7 @@ const API = "http://localhost:5000";
 
 function SitioNuevo() {
   const [tipo_sitio, setTipo_sitio] = useState("");
-  const [correo, setCorreo] = useState("");
+  //const [correo, setCorreo] = useState("");
   const [nombre_sitio, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
   const [telefono, setTelefono] = useState("");
@@ -33,7 +33,7 @@ function SitioNuevo() {
   const [horarioViernesC, setHorarioViernesC] = useState("");
   const [horarioSabadoC, setHorarioSabadoC] = useState("");
   const [horarioDomingoC, setHorarioDomingoC] = useState("");
-  const delegaciones = [
+  const [delegaciones, setDelegaciones] = useState([
     "Álvaro Obregón",
     "Benito Juárez",
     "Azcapotzalco",
@@ -50,22 +50,20 @@ function SitioNuevo() {
     "Tlalpan",
     "Venustiano Carranza",
     "Xochimilco",
-  ];
+  ]);
   const [delegacion, setDelegacion] = useState("");
   const [colonia, setColonia] = useState([]);
-  const [fecha_actualizacion, setFecha_actualizacion] = useState(new Date());
-  const [fecha_fundacion, setFecha_fundacion] = useState(
-    new Date().getMilliseconds()
-  );
+  //const [fecha_actualizacion, setFecha_actualizacion] = useState(new Date());
+  const [fecha_fundacions, setFecha_fundacion] = useState(new Date());
   const [costo_promedio, setCostoPromedio] = useState("");
-  const [adscripcion, setAdscripcion] = useState("");
+  //const [adscripcion, setAdscripcion] = useState("");
   const [etiquetas, setEtiquetas] = useState([]);
   const [servicios, setServicios] = useState([]);
   const [fotografiasC, setFotografias] = useState("");
   const [x_longitud, setX_longitud] = useState("");
   const [y_latitud, setY_latitud] = useState("");
   const [datos, setDatos] = useState(null);
-  const [foto_usuario, setFoto_usuario] = useState("");
+
   const horario = [];
   const navigate = useNavigate();
 
@@ -75,10 +73,10 @@ function SitioNuevo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const tiempoTranscurrido = Date.now();
-    const hoy = new Date();
-
-    const fecha_actualizacion = new Date().getMilliseconds;
-
+    const hoy = new Date(tiempoTranscurrido);
+    //setFecha_actualizacion(hoy.toLocaleDateString());
+    const fecha_actualizacion = hoy.toLocaleDateString();
+    const adscripcion = fecha_actualizacion;
     horario.push(
       [horarioLunesA, horarioLunesC],
       [horarioMartesA, horarioMartesC],
@@ -92,6 +90,8 @@ function SitioNuevo() {
     //console.log("en crear sitio");
     setHorarios(horario);
 
+    const fecha_fundacion = fecha_fundacions.toLocaleDateString();
+    setColonia("mi barrio");
     console.log("a imprimir todo: ");
     console.log(nombre_sitio);
     console.log(x_longitud);
@@ -112,10 +112,10 @@ function SitioNuevo() {
     console.log(etiquetas);
     console.log(servicios);
 
-    //const correo = "p@gmail.com";
-    //const contrasena = "nose";
-    setData(
-      await crearSitio(
+    /*const res = await fetch(`${API}/crearsitio`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         nombre_sitio,
         x_longitud,
         y_latitud,
@@ -133,9 +133,12 @@ function SitioNuevo() {
         adscripcion,
         horario,
         etiquetas,
-        servicios
-      )
-    );
+        servicios,
+      }),
+    });*/
+    const correo = "p@gmail.com";
+    const contrasena = "nose";
+    setData(await crearSitio(correo, contrasena));
   };
 
   useEffect(() => {
@@ -212,15 +215,13 @@ function SitioNuevo() {
                 }}
               >
                 {delegaciones.map((item, i) => (
-                  <option key={"delegacion"} value={i}>
-                    {item}
-                  </option>
+                  <option value={i}>{item}</option>
                 ))}
               </select>{" "}
               <br />
               <br />
               <label className="dato">Colonia: </label>
-              <input
+              <select
                 className="filtrarReseñas"
                 value={colonia}
                 onChange={(e) => {
@@ -228,7 +229,11 @@ function SitioNuevo() {
                   //handleCambiarDelegacion(e);
                   /*setDelegacion(e.target.value)*/
                 }}
-              />
+              >
+                {delegaciones.map((item, i) => (
+                  <option value={i}>{item}</option>
+                ))}
+              </select>{" "}
               <br />
               <br />
               <label className="dato">Correo: </label>
@@ -276,20 +281,11 @@ function SitioNuevo() {
               <label></label>
             </div>
             <div className="derecha">
-              <label className="dato">Adscripcion:</label>
-              <input
-                type="text"
-                placeholder="https:algun sitio web por alli"
-                value={adscripcion}
-                onChange={(e) => setAdscripcion(e.target.value)}
-              />
-              <br />
-              <br />
               <label className="dato">Fecha de fundacion:</label>
               <br />
               <br />
               <DatePicker
-                value={fecha_fundacion}
+                value={fecha_fundacions}
                 onChange={setFecha_fundacion}
               ></DatePicker>
               <br />
@@ -425,18 +421,6 @@ function SitioNuevo() {
                 Crear
               </button>
             </div>
-          </div>
-          <div className="reg">
-            <div className="campo">Seleccionar foto de perfil</div>{" "}
-            <input
-              value={foto_usuario}
-              className="form-control"
-              type="file"
-              id="formFile"
-              name="imagen"
-              onChange={(e) => setFoto_usuario(e.target.value)}
-              accept="image/*"
-            />
           </div>
         </form>
       </div>
