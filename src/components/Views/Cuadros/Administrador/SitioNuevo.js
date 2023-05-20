@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 
-import "./Sitio.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { DatePicker } from "@material-ui/pickers";
+
+import "./Sitio.css";
+import "./SitioNuevo.css";
+import SitioNuevoController from "./SitioNuevoController";
 
 const API = "http://localhost:5000";
 
 function SitioNuevo() {
   const [tipo_sitio, setTipo_sitio] = useState("");
   const [correo, setCorreo] = useState("");
-  const [nombre, setNombre] = useState("");
+  const [nombre_sitio, setNombre] = useState("");
   const [direccion, setDireccion] = useState("");
   const [telefono, setTelefono] = useState("");
-  const [sitioWeb, setSitioWeb] = useState("");
+  const [pagina_web, setSitioWeb] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [horarios, setHorarios] = useState("");
+  const [horarios, setHorarios] = useState([]);
   const [horarioLunesA, setHorarioLunesA] = useState("");
   const [horarioMartesA, setHorarioMartesA] = useState("");
   const [horarioMiercolesA, setHorariomMiercolesA] = useState("");
@@ -29,7 +33,7 @@ function SitioNuevo() {
   const [horarioViernesC, setHorarioViernesC] = useState("");
   const [horarioSabadoC, setHorarioSabadoC] = useState("");
   const [horarioDomingoC, setHorarioDomingoC] = useState("");
-  const [delegacion, setDelegacion] = useState([
+  const delegaciones = [
     "Álvaro Obregón",
     "Benito Juárez",
     "Azcapotzalco",
@@ -46,10 +50,13 @@ function SitioNuevo() {
     "Tlalpan",
     "Venustiano Carranza",
     "Xochimilco",
-  ]);
+  ];
+  const [delegacion, setDelegacion] = useState("");
   const [colonia, setColonia] = useState([]);
-  const [fecha_actualizacion, setFecha_actualizacion] = useState("");
-  const [fecha_fundacion, setFecha_fundacion] = useState("");
+  const [fecha_actualizacion, setFecha_actualizacion] = useState(new Date());
+  const [fecha_fundacion, setFecha_fundacion] = useState(
+    new Date().getMilliseconds()
+  );
   const [costo_promedio, setCostoPromedio] = useState("");
   const [adscripcion, setAdscripcion] = useState("");
   const [etiquetas, setEtiquetas] = useState([]);
@@ -57,31 +64,58 @@ function SitioNuevo() {
   const [fotografiasC, setFotografias] = useState("");
   const [x_longitud, setX_longitud] = useState("");
   const [y_latitud, setY_latitud] = useState("");
-  //const [, navigate] = useLocation();
   const [datos, setDatos] = useState(null);
+  const [foto_usuario, setFoto_usuario] = useState("");
+  const horario = [];
   const navigate = useNavigate();
 
-  /*const handleCambiarDelegacion = async (e) => {
-    e.preventDefault();
-    setDelegacion(e.target.value);
-    const res = await fetch(`${API}/delegacion`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ delegacion }),
-    });
-    const data = await res.json();
-    setColonia(await data);
-  };*/
+  const { crearSitio } = SitioNuevoController();
+  const [data, setData] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const nombre_sitio = nombre;
-    const pagina_web = sitioWeb;
-    console.log("en crear sitio");
-    const res = await fetch(`${API}/sitio`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date();
+
+    const fecha_actualizacion = new Date().getMilliseconds;
+
+    horario.push(
+      [horarioLunesA, horarioLunesC],
+      [horarioMartesA, horarioMartesC],
+      [horarioMiercolesA, horarioMiercolesC],
+      [horarioJuevesA, horarioJuevesC],
+      [horarioViernesA, horarioViernesC],
+      [horarioSabadoA, horarioSabadoC],
+      [horarioDomingoA, horarioDomingoC]
+    );
+
+    //console.log("en crear sitio");
+    setHorarios(horario);
+
+    console.log("a imprimir todo: ");
+    console.log(nombre_sitio);
+    console.log(x_longitud);
+    console.log(y_latitud);
+    console.log(direccion);
+    console.log(tipo_sitio);
+    console.log(delegacion);
+    console.log(colonia);
+    console.log(fecha_actualizacion);
+    console.log(descripcion);
+    //console.log(correo);
+    console.log(fecha_fundacion);
+    console.log(costo_promedio);
+    console.log(pagina_web);
+    console.log(telefono);
+    console.log(adscripcion);
+    console.log(horario);
+    console.log(etiquetas);
+    console.log(servicios);
+
+    //const correo = "p@gmail.com";
+    //const contrasena = "nose";
+    setData(
+      await crearSitio(
         nombre_sitio,
         x_longitud,
         y_latitud,
@@ -97,16 +131,11 @@ function SitioNuevo() {
         pagina_web,
         telefono,
         adscripcion,
-        horarios,
+        horario,
         etiquetas,
-        servicios,
-      }),
-    });
-    const data = await res.json();
-    setDatos(await data);
-    console.log("data es: ", data);
-    //navigate(<App2></App2>);
-    console.log("data otra vez: ", data);
+        servicios
+      )
+    );
   };
 
   useEffect(() => {
@@ -131,231 +160,285 @@ function SitioNuevo() {
       <div class="enmedio">
         <h2>Nuevo sitio </h2>
         <br />
-
-        <label className="dato">Nombre: </label>
-        <br />
-        <input
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          name="correo"
-          className="input"
-        />
-        <br />
-        <br />
-        <br />
-        <div className="cualquier">
-          <div className="izquierda">
-            <label className="dato">Tipo de sitio: </label>
-            <select
-              className="filtrarReseñas"
-              value={tipo_sitio}
-              onChange={(e) => setTipo_sitio(e.target.value)}
-            >
-              <option value="1">Hotel</option>
-              <option value="2">Restaurante</option>
-              <option value="3">Museo</option>
-            </select>{" "}
-            <br />
-            <br />
-            <label className="dato">Delegacion: </label>
-            <select
-              className="filtrarReseñas"
-              value={delegacion}
-              onChange={(e) => {
-                setDelegacion(e.target.value);
-                //handleCambiarDelegacion(e);
-                /*setDelegacion(e.target.value)*/
-              }}
-            >
-              {delegacion.map((item, i) => (
-                <option value={i}>{item}</option>
-              ))}
-            </select>{" "}
-            <br />
-            <br />
-            <label className="dato">Colonia: </label>
-            <select
-              className="filtrarReseñas"
-              value={colonia}
-              onChange={(e) => {
-                setColonia(e.target.value);
-                //handleCambiarDelegacion(e);
-                /*setDelegacion(e.target.value)*/
-              }}
-            >
-              {colonia.map((item, i) => (
-                <option value={i}>{item}</option>
-              ))}
-            </select>{" "}
-            <br />
-            <br />
-            <label className="dato">Correo: </label>
-            <br />
-            <input
-              value={correo}
-              onChange={(e) => setCorreo(e.target.value)}
-              name="correo"
-              className="input"
-            />
-            <br />
-            <br />
-            <label className="dato">Dirección</label>
-            <br />
-            <input
-              type="text"
-              placeholder="En algun lugar de la ciudad de méxico"
-              value={direccion}
-              onChange={(e) => setDireccion(e.target.value)}
-            />
-            <br />
-            <br />
-            <label className="dato">Teléfono: </label>
-            <br />
-            <input
-              type="number"
-              placeholder="55 5555 5555"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
-            />
-            <br />
-            <br />
-            <label className="dato">Sitio web:</label>
-            <br />
-            <input
-              type="text"
-              placeholder="https:algun sitio web por alli"
-              value={sitioWeb}
-              onChange={(e) => setSitioWeb(e.target.value)}
-            />
-            <br />
-            <br />
-            <label className="dato">Fotografías:</label>
-            <br />
-            <label></label>
-          </div>
-          <div className="derecha">
-            <label className="dato">Descripción: </label>
-            <br />
-            <textarea
-              placeholder="El mejor sitio de tacos de la ciudad de méxico. Amigo taco, amigo
+        <form onSubmit={handleSubmit}>
+          <label className="dato">Nombre: </label>
+          <br />
+          <input
+            value={nombre_sitio}
+            onChange={(e) => setNombre(e.target.value)}
+            name="nombre_sitio"
+            className="input"
+          />
+          <br />
+          <br />
+          <br />
+          <div className="cualquier">
+            <div className="izquierda">
+              <label className="dato">Tipo de sitio: </label>
+              <select
+                className="filtrarReseñas"
+                value={tipo_sitio}
+                onChange={(e) => setTipo_sitio(e.target.value)}
+              >
+                <option value="1">Hotel</option>
+                <option value="2">Restaurante</option>
+                <option value="3">Museo</option>
+              </select>{" "}
+              <br />
+              <br />
+              <label className="dato">Longitud, Latitud: </label>
+              <br />
+              <input
+                className="hora"
+                value={x_longitud}
+                onChange={(e) => setX_longitud(e.target.value)}
+              />
+              {"-"}
+              <input
+                className="hora"
+                value={y_latitud}
+                onChange={(e) => setY_latitud(e.target.value)}
+              />
+              <br />
+              <br />
+              <label className="dato">Delegacion: </label>
+              <select
+                className="filtrarReseñas"
+                value={delegacion}
+                onChange={(e) => {
+                  setDelegacion(e.target.value);
+                  //handleCambiarDelegacion(e);
+                  /*setDelegacion(e.target.value)*/
+                }}
+              >
+                {delegaciones.map((item, i) => (
+                  <option key={"delegacion"} value={i}>
+                    {item}
+                  </option>
+                ))}
+              </select>{" "}
+              <br />
+              <br />
+              <label className="dato">Colonia: </label>
+              <input
+                className="filtrarReseñas"
+                value={colonia}
+                onChange={(e) => {
+                  setColonia(e.target.value);
+                  //handleCambiarDelegacion(e);
+                  /*setDelegacion(e.target.value)*/
+                }}
+              />
+              <br />
+              <br />
+              <label className="dato">Correo: </label>
+              <br />
+              {/*<input
+                value={correo}
+                onChange={(e) => setCorreo(e.target.value)}
+                name="correo"
+                className="input"
+                />*/}
+              <br />
+              <br />
+              <label className="dato">Dirección</label>
+              <br />
+              <input
+                type="text"
+                placeholder="En algun lugar de la ciudad de méxico"
+                value={direccion}
+                onChange={(e) => setDireccion(e.target.value)}
+              />
+              <br />
+              <br />
+              <label className="dato">Teléfono: </label>
+              <br />
+              <input
+                type="number"
+                placeholder="55 5555 5555"
+                value={telefono}
+                onChange={(e) => setTelefono(e.target.value)}
+              />
+              <br />
+              <br />
+              <label className="dato">Sitio web:</label>
+              <br />
+              <input
+                type="text"
+                placeholder="https:algun sitio web por alli"
+                value={pagina_web}
+                onChange={(e) => setSitioWeb(e.target.value)}
+              />
+              <br />
+              <br />
+              <label className="dato">Fotografías:</label>
+              <br />
+              <label></label>
+            </div>
+            <div className="derecha">
+              <label className="dato">Adscripcion:</label>
+              <input
+                type="text"
+                placeholder="https:algun sitio web por alli"
+                value={adscripcion}
+                onChange={(e) => setAdscripcion(e.target.value)}
+              />
+              <br />
+              <br />
+              <label className="dato">Fecha de fundacion:</label>
+              <br />
+              <br />
+              <DatePicker
+                value={fecha_fundacion}
+                onChange={setFecha_fundacion}
+              ></DatePicker>
+              <br />
+              <br />
+              <label className="dato">Costo promedio: </label>
+              <br />
+              <input
+                type="text"
+                placeholder="$"
+                value={costo_promedio}
+                onChange={(e) => setCostoPromedio(e.target.value)}
+              />
+              <br />
+              <br />
+              <label className="dato">Descripción: </label>
+              <br />
+              <textarea
+                placeholder="El mejor sitio de tacos de la ciudad de méxico. Amigo taco, amigo
             taco.
           "
-              className="descripcion"
-              value={descripcion}
-              onChange={(e) => setDescripcion(e.target.value)}
-            />
+                className="descripcion"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+              />
 
-            <br />
-            <br />
-            <label className="dato">Horario: </label>
-            <br />
-            <div className="horario">
-              <div className="dia">
-                <label>Lunes: </label>
+              <br />
+              <br />
+              <label className="dato">Horario: </label>
+              <br />
+              <div className="horario">
+                <div className="dia">
+                  <label>Lunes: </label>
+                </div>
+                <input
+                  className="hora"
+                  value={horarioLunesA}
+                  onChange={(e) => setHorarioLunesA(e.target.value)}
+                />{" "}
+                -{" "}
+                <input
+                  className="hora"
+                  value={horarioLunesC}
+                  onChange={(e) => setHorarioLunesC(e.target.value)}
+                />
+                <div className="dia">
+                  <label className="dia">Martes: </label>
+                </div>
+                <input
+                  className="hora"
+                  value={horarioMartesA}
+                  onChange={(e) => setHorarioMartesA(e.target.value)}
+                />{" "}
+                -{" "}
+                <input
+                  className="hora"
+                  value={horarioMartesC}
+                  onChange={(e) => setHorarioMartesC(e.target.value)}
+                />
+                <div className="dia">
+                  <label className="dia">Miércoles</label>
+                </div>
+                <input
+                  className="hora"
+                  value={horarioMiercolesA}
+                  onChange={(e) => setHorariomMiercolesA(e.target.value)}
+                />{" "}
+                -{" "}
+                <input
+                  className="hora"
+                  value={horarioMiercolesC}
+                  onChange={(e) => setHorariomMiercolesC(e.target.value)}
+                />
+                <div className="dia">
+                  <label className="dia">Jueves: </label>
+                </div>
+                <input
+                  className="hora"
+                  value={horarioJuevesA}
+                  onChange={(e) => setHorarioJuevesA(e.target.value)}
+                />{" "}
+                -{" "}
+                <input
+                  className="hora"
+                  value={horarioJuevesC}
+                  onChange={(e) => setHorarioJuevesC(e.target.value)}
+                />
+                <div className="dia">
+                  <label className="dia">Viernes: </label>
+                </div>
+                <input
+                  className="hora"
+                  value={horarioViernesA}
+                  onChange={(e) => setHorarioViernesA(e.target.value)}
+                />{" "}
+                -{" "}
+                <input
+                  className="hora"
+                  value={horarioViernesC}
+                  onChange={(e) => setHorarioViernesC(e.target.value)}
+                />
+                <div className="dia">
+                  <label className="dia">Sábado: </label>
+                </div>
+                <input
+                  className="hora"
+                  value={horarioSabadoA}
+                  onChange={(e) => setHorarioSabadoA(e.target.value)}
+                />{" "}
+                -{" "}
+                <input
+                  className="hora"
+                  value={horarioSabadoC}
+                  onChange={(e) => setHorarioSabadoC(e.target.value)}
+                />
+                <div className="dia">
+                  <label className="dia">Domingo: </label>
+                </div>
+                <input
+                  className="hora"
+                  value={horarioDomingoA}
+                  onChange={(e) => setHorarioDomingoA(e.target.value)}
+                />{" "}
+                -{" "}
+                <input
+                  className="hora"
+                  value={horarioDomingoC}
+                  onChange={(e) => setHorarioDomingoC(e.target.value)}
+                />
               </div>
-              <input
-                className="hora"
-                value={horarioLunesA}
-                onChange={(e) => setHorarioLunesA(e.target.value)}
-              />{" "}
-              -{" "}
-              <input
-                className="hora"
-                value={horarioLunesC}
-                onChange={(e) => setHorarioLunesC(e.target.value)}
-              />
-              <div className="dia">
-                <label className="dia">Martes: </label>
-              </div>
-              <input
-                className="hora"
-                value={horarioMartesA}
-                onChange={(e) => setHorarioMartesA(e.target.value)}
-              />{" "}
-              -{" "}
-              <input
-                className="hora"
-                value={horarioMartesC}
-                onChange={(e) => setHorarioMartesC(e.target.value)}
-              />
-              <div className="dia">
-                <label className="dia">Miércoles</label>
-              </div>
-              <input
-                className="hora"
-                value={horarioMiercolesA}
-                onChange={(e) => setHorariomMiercolesA(e.target.value)}
-              />{" "}
-              -{" "}
-              <input
-                className="hora"
-                value={horarioMiercolesC}
-                onChange={(e) => setHorariomMiercolesC(e.target.value)}
-              />
-              <div className="dia">
-                <label className="dia">Jueves: </label>
-              </div>
-              <input
-                className="hora"
-                value={horarioJuevesA}
-                onChange={(e) => setHorarioJuevesA(e.target.value)}
-              />{" "}
-              -{" "}
-              <input
-                className="hora"
-                value={horarioJuevesC}
-                onChange={(e) => setHorarioJuevesC(e.target.value)}
-              />
-              <div className="dia">
-                <label className="dia">Viernes: </label>
-              </div>
-              <input
-                className="hora"
-                value={horarioViernesA}
-                onChange={(e) => setHorarioViernesA(e.target.value)}
-              />{" "}
-              -{" "}
-              <input
-                className="hora"
-                value={horarioViernesC}
-                onChange={(e) => setHorarioViernesC(e.target.value)}
-              />
-              <div className="dia">
-                <label className="dia">Sábado: </label>
-              </div>
-              <input
-                className="hora"
-                value={horarioSabadoA}
-                onChange={(e) => setHorarioSabadoA(e.target.value)}
-              />{" "}
-              -{" "}
-              <input
-                className="hora"
-                value={horarioSabadoC}
-                onChange={(e) => setHorarioSabadoC(e.target.value)}
-              />
-              <div className="dia">
-                <label className="dia">Domingo: </label>
-              </div>
-              <input
-                className="hora"
-                value={horarioDomingoA}
-                onChange={(e) => setHorarioDomingoA(e.target.value)}
-              />{" "}
-              -{" "}
-              <input
-                className="hora"
-                value={horarioDomingoC}
-                onChange={(e) => setHorarioDomingoC(e.target.value)}
-              />
+              <br />
+              <br />
+              <button className="actualizar_sitio" type="submit">
+                Crear
+              </button>
             </div>
-            <br />
-            <br />
-            <button className="actualizar_sitio" onClick={handleSubmit}>
-              Crear
-            </button>
           </div>
-        </div>
+          <div className="reg">
+            <div className="campo">Seleccionar foto de perfil</div>{" "}
+            <input
+              value={foto_usuario}
+              className="form-control"
+              type="file"
+              id="formFile"
+              name="imagen"
+              onChange={(e) => setFoto_usuario(e.target.value)}
+              accept="image/*"
+            />
+          </div>
+        </form>
       </div>
     </div>
   );
