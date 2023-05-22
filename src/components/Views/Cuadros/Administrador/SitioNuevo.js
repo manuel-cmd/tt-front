@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { DatePicker } from "@material-ui/pickers";
+//import moment from "moment";
 
 import "./Sitio.css";
 import "./SitioNuevo.css";
@@ -53,10 +55,9 @@ function SitioNuevo() {
   ];
   const [delegacion, setDelegacion] = useState("");
   const [colonia, setColonia] = useState([]);
-  const [fecha_actualizacion, setFecha_actualizacion] = useState(new Date());
-  const [fecha_fundacion, setFecha_fundacion] = useState(
-    new Date().getMilliseconds()
-  );
+  const [fecha_actualizacion, setFecha_actualizacion] = useState("");
+  const [fecha_fundacion, setFecha_fundacion] = useState();
+  const [fecha_fundacion2, setFecha_fundacion2] = useState();
   const [costo_promedio, setCostoPromedio] = useState("");
   const [adscripcion, setAdscripcion] = useState("");
   const [etiquetas, setEtiquetas] = useState([]);
@@ -65,20 +66,22 @@ function SitioNuevo() {
   const [x_longitud, setX_longitud] = useState("");
   const [y_latitud, setY_latitud] = useState("");
   const [datos, setDatos] = useState(null);
-  const [foto_usuario, setFoto_usuario] = useState("");
+  const [foto_sitio, setFoto_sitio] = useState(null);
   const horario = [];
   const navigate = useNavigate();
 
   const { crearSitio } = SitioNuevoController();
   const [data, setData] = useState(null);
+  const dataToSend = new FormData();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const tiempoTranscurrido = Date.now();
-    const hoy = new Date();
-
-    const fecha_actualizacion = new Date().getMilliseconds;
-
+    const hoy = new Date(tiempoTranscurrido);
+    setFecha_actualizacion();
+    setFecha_fundacion2(fecha_fundacion);
+    //const fecha_actualizacion = hoy;
+    //const fecha = moment(fecha_fundacion);
     horario.push(
       [horarioLunesA, horarioLunesC],
       [horarioMartesA, horarioMartesC],
@@ -93,28 +96,34 @@ function SitioNuevo() {
     setHorarios(horario);
 
     console.log("a imprimir todo: ");
-    console.log(nombre_sitio);
-    console.log(x_longitud);
-    console.log(y_latitud);
-    console.log(direccion);
-    console.log(tipo_sitio);
-    console.log(delegacion);
-    console.log(colonia);
-    console.log(fecha_actualizacion);
-    console.log(descripcion);
-    //console.log(correo);
-    console.log(fecha_fundacion);
-    console.log(costo_promedio);
-    console.log(pagina_web);
-    console.log(telefono);
-    console.log(adscripcion);
-    console.log(horario);
-    console.log(etiquetas);
-    console.log(servicios);
+
+    dataToSend.append("nombre_sitio", "nombre_sitio");
+    dataToSend.append("x_longitud", x_longitud);
+    dataToSend.append("y_latitud", y_latitud);
+    dataToSend.append("direccion", direccion);
+    dataToSend.append("tipo_sitio", tipo_sitio);
+    dataToSend.append("delegacion", delegacion);
+    dataToSend.append("colonia", colonia);
+    dataToSend.append("fecha_actualizacion", fecha_actualizacion);
+    dataToSend.append("descripcion", descripcion);
+    //dataToSend.append("correo",correo);
+    dataToSend.append("fecha_fundacion", fecha_fundacion);
+    dataToSend.append("costo_promedio", costo_promedio);
+    dataToSend.append("pagina_web", pagina_web);
+    dataToSend.append("telefono", telefono);
+    dataToSend.append("adscripcion", adscripcion);
+    dataToSend.append("horario", horario);
+    dataToSend.append("etiquetas", etiquetas);
+    dataToSend.append("servicios", servicios);
+    dataToSend.append("foto_sitio", foto_sitio);
+
+    console.log("desde registro sitio entes del controller: ", dataToSend);
+
+    await crearSitio(dataToSend);
 
     //const correo = "p@gmail.com";
     //const contrasena = "nose";
-    setData(
+    /*setData(
       await crearSitio(
         nombre_sitio,
         x_longitud,
@@ -123,10 +132,10 @@ function SitioNuevo() {
         tipo_sitio,
         delegacion,
         colonia,
-        fecha_actualizacion,
+        fecha_fundacion2,
         descripcion,
         correo,
-        fecha_fundacion,
+        fecha_fundacion2,
         costo_promedio,
         pagina_web,
         telefono,
@@ -135,25 +144,25 @@ function SitioNuevo() {
         etiquetas,
         servicios
       )
-    );
+    );*/
   };
 
   useEffect(() => {
-    if (datos == false || datos == []) {
+    if (data == false || data == []) {
       console.log("data error: ", datos);
       toast.error(datos.error);
     }
-    if (datos != null) {
-      if (datos.tipo_usuario == "Usuario registrado") {
-        console.log("data es en useEffect: ", datos);
-        navigate("../usuario/inicio");
+    if (data != null) {
+      if (data.error) {
+        console.log("data es en useEffect: ", data);
+        toast.error(data.error);
       }
-      if (datos.tipo_usuario == "administrador") {
-        console.log("data es en useEffect: ", datos);
+      if (data.tipo_usuario == "administrador") {
+        console.log("data es en useEffect: ", data);
         navigate("../administrador/inicio");
       }
     }
-  }, [datos]);
+  }, [data]);
 
   return (
     <div class="inicio_2">
@@ -183,9 +192,38 @@ function SitioNuevo() {
                 <option value="1">Hotel</option>
                 <option value="2">Restaurante</option>
                 <option value="3">Museo</option>
+                <option value="4">Monumento</option>
+                <option value="5">Parque</option>
+                <option value="6">Teatro</option>
               </select>{" "}
               <br />
               <br />
+              {tipo_sitio == "1" && (
+                <div>
+                  <label className="dato">Etiquetas: </label>
+                  <textarea
+                    placeholder="Ingresa las etiquetas"
+                    className="descripcion"
+                    value={etiquetas}
+                    onChange={(e) => setEtiquetas(e.target.value)}
+                  />
+                  <br />
+                  <br />
+                </div>
+              )}
+              {tipo_sitio == "2" && (
+                <div>
+                  <label className="dato">Servicios: </label>
+                  <textarea
+                    placeholder="Ingresa los servicios"
+                    className="descripcion"
+                    value={servicios}
+                    onChange={(e) => setServicios(e.target.value)}
+                  />
+                  <br />
+                  <br />
+                </div>
+              )}
               <label className="dato">Longitud, Latitud: </label>
               <br />
               <input
@@ -212,7 +250,7 @@ function SitioNuevo() {
                 }}
               >
                 {delegaciones.map((item, i) => (
-                  <option key={"delegacion"} value={i}>
+                  <option key={"delegacion" + i} value={i}>
                     {item}
                   </option>
                 ))}
@@ -290,8 +328,8 @@ function SitioNuevo() {
               <br />
               <DatePicker
                 value={fecha_fundacion}
-                onChange={setFecha_fundacion}
-              ></DatePicker>
+                onChange={(e) => setFecha_fundacion(new Date(e).toISOString())}
+              />
               <br />
               <br />
               <label className="dato">Costo promedio: </label>
@@ -427,18 +465,20 @@ function SitioNuevo() {
             </div>
           </div>
           <div className="reg">
-            <div className="campo">Seleccionar foto de perfil</div>{" "}
+            <div className="campo">
+              Seleccionar foto de perfil para el sitio
+            </div>{" "}
             <input
-              value={foto_usuario}
               className="form-control"
               type="file"
               id="formFile"
               name="imagen"
-              onChange={(e) => setFoto_usuario(e.target.value)}
+              onChange={(e) => setFoto_sitio(e.target.files[0])}
               accept="image/*"
             />
           </div>
         </form>
+        <Toaster></Toaster>
       </div>
     </div>
   );

@@ -6,22 +6,18 @@ import Menu_r from "./Menu/Menu_r";
 //import Sitios from "./Cuadros/Sitios";
 import ConfigurarCuenta from "./Cuenta/UsuarioRegistrado/ConfigurarCuenta";
 
-function Inicio_usuario_registrado(){
-    return(
-        <div>
-            <Menu_r />
-            <div class="inicio">
-                <div class="guia"><br/>
-                    {//Aqui puede ir el inicio ventana
-                    }
-                </div>               
-            </div>
-            {//<Filtros />
-            //<Sitios/>
-            }
-            <ConfigurarCuenta></ConfigurarCuenta>
+function Inicio_usuario_registrado() {
+  return (
+    <div>
+      <Menu_r />
+      <div class="inicio">
+        <div class="guia">
+          <br />
         </div>
-    );
-};
+      </div>
+      <ConfigurarCuenta></ConfigurarCuenta>
+    </div>
+  );
+}
 
 export default Inicio_usuario_registrado;

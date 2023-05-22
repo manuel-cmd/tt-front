@@ -8,7 +8,7 @@ const API = "http://localhost:5000";
 function Usuarios(props) {
   const [name, setName] = useState("");
   const [opcion, setOpcion] = useState(0);
-  const [sitios, setSitios] = useState([]);
+  const [usuarios, setUsuarios] = useState([]);
   const [filtros, setFiltros] = useState([]);
   const [nombre, setNombre] = useState([]);
   const [preciomenor, setPreciomenor] = useState("");
@@ -30,22 +30,22 @@ function Usuarios(props) {
     );
     console.log("res: ", res);
     const data = await res.json();
-    setSitios(data);
+    setUsuarios(data);
     console.log("data: ", data);
   };
 
-  const getSitios = async (e) => {
-    const res = await fetch(`${API}/sitios`);
+  const getUsuarios = async (e) => {
+    const res = await fetch(`${API}/usuariosAdministrador`);
     const data = await res.json();
     console.log("datos de getSitios: ", res);
-    setSitios(data);
+    setUsuarios(data);
   };
 
   useEffect(() => {
     console.log("a ver");
     if (opcion == 0) {
       console.log("inicia bien");
-      getSitios();
+      getUsuarios();
     } else {
       console.log("inicia bien 2");
     }
@@ -63,8 +63,12 @@ function Usuarios(props) {
               <th>Númeo de Calificaciones</th>
               <th>Promedio</th>
             </tr>
-            <CeldaUsuario></CeldaUsuario>
-            <CeldaUsuario></CeldaUsuario>
+            {usuarios.map(
+              (usuario) =>
+                usuario.habilitado == true && (
+                  <CeldaUsuario items={usuario}></CeldaUsuario>
+                )
+            )}
           </table>
         </div>
       </div>

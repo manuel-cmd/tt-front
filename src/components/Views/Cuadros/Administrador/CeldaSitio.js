@@ -34,6 +34,23 @@ function CeldaSitio(props) {
 
   useEffect(() => {}, []);
 
+  const eliminar = async (e) => {
+    e.preventDefault();
+    //console.log("la opcion es: ", opcion);
+    console.log("API:", API);
+    //console.log("length filtros: ", filtros.length);
+
+    const res = await fetch(`${API}/sitioEliminar`, {
+      method: "DELETE",
+      headers: { "CONTENT-TYPE": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    console.log("res: ", res);
+    const data = await res.json();
+    setSitio(data);
+    console.log("data: ", data);
+  };
+
   return (
     <tr>
       <td className="correo">{nombre}</td>
@@ -45,8 +62,10 @@ function CeldaSitio(props) {
           <Link to={ROUTES_ADMIN.SITIOSID}>
             <button className="actualizar">Actualizar</button>
           </Link>
-          <Link to={ROUTES_ADMIN.SITIOSID}>
-            <button className="eliminar">Eliminar</button>
+          <Link to={ROUTES_ADMIN.SITIOS}>
+            <button className="eliminar" onClick={eliminar}>
+              Eliminar
+            </button>
           </Link>
         </div>
       </td>

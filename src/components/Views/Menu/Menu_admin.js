@@ -1,9 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES_ADMIN } from "../../../constants/routes_administrador";
+
 import "./Menu_no_r.css";
 
 function Menu_admin() {
+  const navigate = useNavigate();
+
+  const cerrarSesion = async (e) => {
+    localStorage.removeItem("usuario");
+    navigate("../../inicio");
+  };
+
   return (
     <div class="menu">
       <label class="checkbtn">Logo</label>
@@ -41,6 +50,9 @@ function Menu_admin() {
               <a class="active">Configuracion</a>
             </li>
           </Link>
+          <li>
+            <button onClick={cerrarSesion}>Cerrar Sesion</button>
+          </li>
         </ul>
       </div>
     </div>

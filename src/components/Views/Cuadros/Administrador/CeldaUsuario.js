@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 import { ROUTES_ADMIN } from "../../../../constants/routes_administrador";
 
 import "./CeldaSitio.css";
 
-function CeldaUsuario() {
+function CeldaUsuario(props) {
+  const [id] = useState(props.items.cve_usuario);
+  const [nombre] = useState(props.items.nombre_usuario);
+  const [sitio, setSitio] = useState([]);
   return (
     <tr>
       <td className="correo">Tacos@gmail.com</td>

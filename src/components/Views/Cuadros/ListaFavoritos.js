@@ -47,6 +47,7 @@ function ListaFavoritos() {
 
   const getFavoritos = async (e) => {
     setNombre(u.usuario);
+    console.log("el usuario en favoritos es: ", nombre);
     const res = await fetch(`${API}/favoritosUsuario`);
     const data = await res.json();
     //console.log(data);
