@@ -12,11 +12,13 @@ import Menu_no_r from "./components/Views/Menu/Menu_no_r";
 import InfoSitio from "./components/Views/Cuadros/InfoSitio";
 import Comentarios from "./components/Views/Cuadros/Comentarios";
 
-import Inicio from "./pages/UsuarioNoRegistrado/Inicio/Inicio";
-import Sitios from "./pages/UsuarioNoRegistrado/Sitios/Sitios";
-import Configuracion from "./pages/UsuarioNoRegistrado/Configuracion/Configuracion";
-import Login from "./pages/UsuarioNoRegistrado/Login/Login";
-import Registrar from "./pages/UsuarioNoRegistrado/Registrar/Registrar";
+import {
+  Inicio,
+  Sitios,
+  Configuracion,
+  Login,
+  Registrar,
+} from "./pages/UsuarioNoRegistrado";
 
 function App() {
   return (

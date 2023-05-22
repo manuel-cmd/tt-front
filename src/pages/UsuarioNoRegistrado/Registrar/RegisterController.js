@@ -13,13 +13,17 @@ const RegisterController = () => {
   //const { user, saveUserSession } = useContext(UserContext);
   const { user, setUser } = useState();
 
-  const register = async (usuario, correo, contrasena, foto_usuario) => {
+  const register = async (datos) => {
     console.log("en register");
-    console.log("foto usuario: ", foto_usuario);
+    console.log("datos: ", datos);
+
     const res = await fetch(`${API}/registro`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ correo, usuario, contrasena, foto_usuario }),
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Accept: "application/json",
+      },
+      body: datos,
     });
     const data = await res.json();
     if (!res.ok) {

@@ -25,12 +25,27 @@ function Registrar() {
 
   const [foto_usuario, setFoto_usuario] = useState("");
 
+  const dataToSend = new FormData();
+
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+  const subirImage = async (e) => {
+    console.log(e.target.files[0]);
+    setFoto_usuario(e.target.files[0]);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setData(await register(usuario, correo, contrasena, foto_usuario));
-    console.log("data es: ", data);
+
+    dataToSend.append("correo", correo);
+    dataToSend.append("usuario", usuario);
+    dataToSend.append("contrasena", contrasena);
+    //dataToSend.append("foto_usuario", foto_usuario);
+    console.log("correo es: ", dataToSend.get("correo"));
+    const datosaenviar = Object.fromEntries(dataToSend);
+    console.log("a ver: ", datosaenviar);
+    //setData(await register(usuario, correo, contrasena, foto_usuario));
+    setData(await register(dataToSend));
+
     //navigate(<App2></App2>);
     console.log("data otra vez: ", data);
   };
@@ -71,7 +86,6 @@ function Registrar() {
                 <input
                   value={correo}
                   onChange={(e) => setCorreo(e.target.value)}
-                  name="correo"
                   className="input"
                 />
               </div>
@@ -82,7 +96,6 @@ function Registrar() {
                 <input
                   value={usuario}
                   onChange={(e) => setNombre(e.target.value)}
-                  name="usuario"
                   className="input"
                 />
               </div>
@@ -94,7 +107,6 @@ function Registrar() {
                   className="input"
                   value={contrasenarepetir}
                   onChange={(e) => setContrarepetir(e.target.value)}
-                  name="contrarepetir"
                 />
               </div>
               <br />
@@ -104,23 +116,29 @@ function Registrar() {
                 <input
                   value={contrasena}
                   onChange={(e) => setContra(e.target.value)}
-                  name="contra"
                   className="input"
                 />
               </div>
               <br />
               <br />
+              <div className="seleccionrFoto">
+                Seleccionar foto de perfil
+              </div>{" "}
+              <br />
               <div className="reg">
-                <div className="campo">Seleccionar foto de perfil</div>{" "}
                 <input
-                  value={foto_usuario}
+                  value={undefined}
                   className="form-control"
                   type="file"
                   id="formFile"
-                  name="imagen"
-                  onChange={(e) => setFoto_usuario(e.target.value)}
+                  onChange={(e) => setFoto_usuario(e.target.files[0])}
                   accept="image/*"
                 />
+                {/*foto_usuario != null && (
+                  <div className="imagenSeleccionada">
+                    <img src={require(foto_usuario)}></img>
+                  </div>
+                )*/}
               </div>
               <br />
               <br />

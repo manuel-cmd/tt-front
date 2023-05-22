@@ -16,6 +16,8 @@ function Sitios(props) {
   const [preciomayor, setPreciomayor] = useState("");
   const [delegacion, setDelegacio] = useState("");
 
+  const [eliminar, setEliminar] = useState([]);
+
   const handleSubmitConFiltro = async (e) => {
     e.preventDefault();
     console.log("la opcion es: ", opcion);
@@ -68,7 +70,13 @@ function Sitios(props) {
               </tr>
               {sitios.map(
                 (sitio) =>
-                  sitio.habilitado == true && <CeldaSitio items={sitio} />
+                  sitio.habilitado == true && (
+                    <CeldaSitio
+                      items={sitio}
+                      inputValue={eliminar}
+                      onInputValueChange={setEliminar}
+                    />
+                  )
               )}
               {/*<CeldaSitio></CeldaSitio>
               <CeldaSitio></CeldaSitio>*/}
